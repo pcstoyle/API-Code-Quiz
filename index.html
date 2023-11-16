@@ -5,54 +5,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Code Quiz Challenge</title>
-<link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
   <nav class="page-header">
     <div id="show-scores">
-      <li><h3>View Scores</h3></li>
+      <li>
+        <h3>View Scores</h3>
+      </li>
     </div>
     </div>
-    <li id = "timer">Time left: <span class="timer">90</span></li>
+    <li id="timer">Time left: <span id="countdown"></span></li>
     </div>
   </nav>
 
-  <div id = "home-page">
-    <header><h1>Coding Quiz Challenge</h1></header>
-    <div id="start-container" class = "hide">
+  <div id="home-page">
+    <header>
+      <h1>Coding Quiz Challenge</h1>
+    </header>
+    <div id="start" class="show">
       <p>
-        Try to answer the code-related questions within the time limit. But remember... you'll be penelized 10 seconds for every incorrect answer!
+        Try to answer the code-related questions within the time limit. But remember... you'll be penelized 10 seconds
+        for every incorrect answer!
       </p>
-        <button type="button" id="start-button">Start</button>
+      <button type="button" id="start-button">Start</button>
     </div>
 
-    <div id="container" class = "hide">
-      <div id="quiz-container" class = "hide">
-        <p id="question"></p>
-        <ul id="choices"></ul>
-        <p id="result-message"></p>
-      </div>
 
-      <div id="input-score-container" class="hide">
-        <h2>Quiz Complete!</h2>
-        <p id="final-score"></p>
-        <form>
-          <label for="name">Name:</label>
-          <input type="text" id="name" required>
-          <button type="submit">Submit Score</button>
-          <button type="button" id="clear-btn">Clear Scores</button>
-        </form>
-      
-        <div id="scores-container" class ="hide">
-          <h2>Scores</h2>
-          <ul id="scores-list" style="padding-left: 0px;"></ul>
-          <button type="button" id="back-btn">Go Back</button>
-          <button type="button" id="clear-btn">Clear Scores</button>
-        </div>
-      </div>
+    <div id="quiz" class="hide">
+      <p id="question"></p>
+      <ul id="options"></ul>
+      <p id="result-message"></p>
     </div>
-    <script src="./assets/js/index.js"></script>
+
+    <div id="input-score-container" class="hide">
+      <h2>Quiz Complete!</h2>
+      <p id="final-score"></p>
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+        <button type="submit">Submit Score</button>
+        <button type="button" id="clear-btn">Clear Scores</button>
+      </form>
+    </div>
+
+    <div id="scores-container" class="hide">
+      <h2>Scores</h2>
+      <ul id="scores-list" style="padding-left: 0px;"></ul>
+      <button type="button" id="back-btn">Go Back</button>
+      <button type="button" id="clear-btn">Clear Scores</button>
+    </div>
+
+  </div>
+  <script src="./assets/js/script.js"></script>
 </body>
 
 </html>

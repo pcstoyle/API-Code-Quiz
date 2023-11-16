@@ -1,11 +1,7 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
-    /* font-size: 24px; */
     margin: 0;
     padding: 0;
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center;    */
 }
 
 nav {
@@ -40,7 +36,8 @@ header {
     text-wrap: wrap;
 }
 
-#start-container p {
+#start p {
+    font-size: 24px;
     padding: 0px 20px 20px 20px;
 }
 
@@ -64,9 +61,14 @@ button:hover {
 h2 {
     padding: 20px;
 }
-/* .hide { 
-    display: none;
-}*/
+
+.hide { 
+    visibility: hidden;
+}
+
+.show {
+    visibility: visible; 
+}
 
 form {
     display: inline;
