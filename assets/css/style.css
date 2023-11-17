@@ -41,6 +41,11 @@ header {
     padding: 0px 20px 20px 20px;
 }
 
+#quiz p {
+    font-size: 24px;
+    padding: 20px 20px 20px 20px;
+}
+
 button {
     background-color: white;
     color: black;
@@ -63,11 +68,11 @@ h2 {
 }
 
 .hide { 
-    visibility: hidden;
+    display: none;
 }
 
 .show {
-    visibility: visible; 
+    display: block; 
 }
 
 form {
@@ -85,4 +90,10 @@ form input {
 form button {
     display: inline-block;
     margin: 10px
+}
+
+#scores-list li {
+    list-style-type: none;
+    margin: 20px;
+    padding: 50 px;
 }

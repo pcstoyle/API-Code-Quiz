@@ -12,7 +12,7 @@
   <nav class="page-header">
     <div id="show-scores">
       <li>
-        <h3>View Scores</h3>
+        <h3><button>View Scores</button></h3>
       </li>
     </div>
     </div>
@@ -21,25 +21,26 @@
   </nav>
 
   <div id="home-page">
+
     <header>
       <h1>Coding Quiz Challenge</h1>
     </header>
+
     <div id="start" class="show">
       <p>
-        Try to answer the code-related questions within the time limit. But remember... you'll be penelized 10 seconds
-        for every incorrect answer!
+        Try to answer the code-related questions within the time limit.
       </p>
       <button type="button" id="start-button">Start</button>
     </div>
 
-
-    <div id="quiz" class="hide">
+    <div id="quiz" >
+    <!-- class="hide"> -->
       <p id="question"></p>
-      <ul id="options"></ul>
-      <p id="result-message"></p>
+      <div id="options"></div>
+      <p id="result"></p>
     </div>
 
-    <div id="input-score-container" class="hide">
+    <div id="score" class="hide">
       <h2>Quiz Complete!</h2>
       <p id="final-score"></p>
       <form>
@@ -50,7 +51,7 @@
       </form>
     </div>
 
-    <div id="scores-container" class="hide">
+    <div id="scores-container" class = "hide">
       <h2>Scores</h2>
       <ul id="scores-list" style="padding-left: 0px;"></ul>
       <button type="button" id="back-btn">Go Back</button>

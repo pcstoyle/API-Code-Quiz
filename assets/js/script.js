@@ -1,91 +1,145 @@
 // let userScore = {};
-var questionIndex = 0;
+
 let timerInterval;
 var timerEl = document.getElementById("countdown");
-var questionEl = document.getElementById("question");
-var optionsEl = document.getElementById("options");
+
 
 const questions = [{
     question: "Commonly used data types DO NOT include:",
-    options: ["Strings", "Booleans", "Alerts", "Numbers",
+    answers: ["Strings", "Booleans", "Alerts", "Numbers",
     ],
-    answer: 3,
+    correctAnswer: "Alerts",
 },
 {
     question: "The condition in an if/else statement is enclosed within _______.",
-    options: ["Parentheses", "Curley Brackets", "Square Brackets", "Quotes",
+    answers: ["Parentheses", "Curley Brackets", "Square Brackets", "Quotes",
     ],
-    answer: 1,
+    correctAnswer: "Parentheses",
 },
 {
     question: "Arrays in JavaScript can be used to store ________",
-    options: ["Booleans", "Strings", "Numbers", "All of the above",
+    answers: ["Booleans", "Strings", "Numbers", "All of the above",
     ],
-    answer: 4,
+    correctAnswer: "All of the above",
 },
 {
     question: "String values must be encosed within _______ when being assigned to variables.",
-    options: ["Quotes", "Curley Brackets", "Square Brackets", "Parentheses",
+    answers: ["Quotes", "Curley Brackets", "Square Brackets", "Parentheses",
     ],
-    answer: 3,
+    correctAnswer: "Square Brackets",
 },
 {
     question: "Console.log is a useful tool that can be used during development for debugging an app.",
-    options: ["True", "False",
+    answers: ["True", "False",
     ],
-    answer: 1,
+    correctAnswer: "True",
 },
 ];
 
-// WHEN I click the start button -- event buttonstener, click start 
 document.getElementById("start-button").addEventListener("click", function startQuiz() {
-    document.getElementById("start").style.visibility = "hidden";
-    document.getElementById("quiz").style.display = "visable";
+    document.getElementById("start").style.display = "none";
+    // document.getElementById("quiz").style.display = "visable";
     startTimer();
     displayQuestions();
 });
-// THEN a timer starts and I am presented with a question -- timer with a countdown 
 
 function startTimer() {
     var time = 60;
-    var timeLeft = setInterval(() => {
+    timeLeft = setInterval(() => {
         time--;
         timerEl.textContent = time;
+        if (time <= 0) {
+            clearInterval(timeLeft);
+            timerEl.textContent = "0";
+        }
     }, 1000);
 };
 
-function displayQuestions() {
-    // pulling from questions object begining with 0 in the array 
+let questionIndex = 0;
+let correctAnswers = 0;
+
+function displayQuestions(currentQuestion) {
+    var questionEl = document.getElementById("question");
+    var optionsEl = document.getElementById("options");
     var currentQuestion = questions[questionIndex];
-
-    questionEl.textContent = currentQuestion.question;
+    document.getElementById("quiz").style.display = "visable";
+    questionEl.textContent = questions[questionIndex].question;
     optionsEl.textContent = "";
-
-    currentQuestion.options.forEach(option => {
-        const optionsButton = document.createElement("button");
-        optionsButton.textContent = option;
-        optionsEl.appendChild(optionsButton);
-        //     optionsButton.addEventListener("click", () => checkAnswer(option));
+    
+    currentQuestion.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.textContent = answer;
+        button.addEventListener("click", () => checkAnswer(answer));
+        optionsEl.appendChild(button);
     });
-    questionEl.append(currentQuestion.question);
-        
     };
 
-// WHEN I answer a question -- present question with MC/TF answers, 
-// THEN I am presented with another question  --proceed to next question, create questions attributes, append to DOM, keep count  
+function checkAnswer(answer) {
+    var currentQuestion = questions[questionIndex];
+    var resultEl = document.getElementById("result");
+
+    if (answer === currentQuestion.correctAnswer) {
+        resultEl.textContent = "Correct!";
+        correctAnswers++;
+    } else {
+        resultEl.textContent = "Incorrect.";
+    }
+    questionIndex++;
+    if (questionIndex === questions.length) {
+        setTimeout(endQuiz, 1000)
+    } else {
+        setTimeout(displayQuestions, 100)
+    }
+    console.log(correctAnswers);
+};
+var totalQuestions = 5;
+
+function score (correctAnswers, totalQuestions) {
+    var percentage = (correctAnswers/5) * 100;
+    return percentage;
+};
 
 
+function endQuiz () {
+    clearInterval(timeLeft);
+    document.getElementById("score").setAttribute("class", "show");
+    document.getElementById("quiz").style.display = "none";
+    var finalScore = document.getElementById("final-score");
+    var scorePercent = score(correctAnswers, totalQuestions);
+    finalScore.textContent = `You answered ${correctAnswers} out of 5 correcty!!  ${scorePercent}%`
+    console.log(scorePercent);
+}
 
+document.querySelector("form").addEventListener("submit", saveScore);
 
-// WHEN I answer a question incorrectly -- if/else statement for correct answer 
+function saveScore(event) {
+    event.preventDefault();
+    var name = document.getElementById("name").value;
+    var scorePercent = score(correctAnswers, totalQuestions);
+    localStorage.setItem("name", name);
+    localStorage.setItem("score", scorePercent);
+    displayScores();
+}
 
+document.getElementById("show-scores").addEventListener("click", displayScores);
+document.getElementById("back-btn").addEventListener("click", function resetQuiz() {
+    questionIndex = 0;
+    correctAnswers = 0;
+    time = 60
+    document.getElementById("start").style.display = "block";
+    document.getElementById("scores-container").style.display = "none";
+});
 
-// THEN time is subtracted from the clock -- deduct time from clock 
-
-
-// WHEN all questions are answered or the timer reaches 0 -- show score 
-// THEN the game is over
-
-
-// WHEN the game is over
-// THEN I can save my initials and my score -- set/get scores from local storage
+function displayScores() {
+    var savedName = localStorage.getItem("name");
+    var savedScore = localStorage.getItem("score");
+    document.getElementById("score").style.display = "none";
+    document.getElementById("scores-container").style.display = "block";
+    document.getElementById("start").style.display = "none";
+    if (savedName && savedScore) {
+      var scoresContainer = document.getElementById("scores-list");
+      var li = document.createElement("li");
+      li.innerHTML = `${savedName}: ${savedScore}%`;
+      scoresContainer.appendChild(li);
+    };
+  }
